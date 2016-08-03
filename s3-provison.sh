@@ -25,7 +25,7 @@ then
 						sed -i s/ramsize/"$webmemory"/g sl1.tf
 						sed -i s/osname/"$webimage"/g sl1.tf
 						sed -i s/rootdisk/"$webdisk"/g sl1.tf
-						sed -i s/postinstall/"$webpostinstall"/g s11.tf
+						sed -i s/piscript/"$webpostinstall"/g s11.tf
 						sed -i s/userdata/"$webuserdata"/g s11.tf
 						mkdir -p $2/$1/web
 						mkdir -p $2/$1/db
@@ -40,7 +40,7 @@ then
 						sed -i s/ramsize/"$dbmemory"/g sl1.tf
 						sed -i s/osname/"$dbimage"/g sl1.tf
 						sed -i s/rootdisk/"$dbdisk"/g sl1.tf
-						sed -i s/postinstall/"$dbpostinstall"/g s11.tf
+						sed -i s/piscript/"$dbpostinstall"/g s11.tf
 						sed -i s/userdata/"$dbuserdata"/g s11.tf
 						mv sl1.tf $2/$1/db/
 						cd $2/$1/db
