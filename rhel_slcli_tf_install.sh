@@ -60,7 +60,8 @@ else
         cd terraform_dir
         wget https://releases.hashicorp.com/terraform/0.7.0/terraform_0.7.0_linux_amd64.zip
         unzip terraform_0.7.0_linux_amd64.zip
-        echo "export PATH=$PATH:/root/terraform_dir"
+        echo "export PATH=$PATH:/root/terraform_dir" >> /root/.bash_profile
+		source /root/.bash_profile		
         echo "Installation is complete!"
 fi
 echo "Version details are as follows:"
