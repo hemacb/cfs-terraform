@@ -119,7 +119,7 @@ then
 		else
 			echo "Current POC Code supports Java and PHP runtime envs only. Please select accordingly...!"
 		fi	
-elif
+else
 	echo "Current POC code supports Single Tier or 2 Tier servers only. Please select accordingly...!"
 fi
 
