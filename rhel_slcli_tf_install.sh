@@ -23,11 +23,11 @@ else
                         then
                                 echo "Installation Complete"
                         else
-                                yum install python-setuptools
+                                yum install python-setuptools -y
                                 python setup.py install
                         fi
         else
-                yum install unzip
+                yum install unzip -y
                 unzip master
                 cd softlayer-softlayer-python-4932cac
                         python setup.py install
@@ -36,7 +36,7 @@ else
                         then
                                 echo "Installation Complete"
                         else
-                                yum install python-setuptools
+                                yum install python-setuptools -y
                                 python setup.py install
                         fi
         fi
@@ -55,12 +55,12 @@ if [ $check1 == 0 ]
         echo "Terraform is already installed!"
 else
         echo "Installing Terraform... Sit back and relax!"
+		cd /root
         mkdir terraform_dir
         cd terraform_dir
         wget https://releases.hashicorp.com/terraform/0.7.0/terraform_0.7.0_linux_amd64.zip
         unzip terraform_0.7.0_linux_amd64.zip
-        dir1=`pwd`
-        export PATH=$PATH:$dir1
+        echo "export PATH=$PATH:/root/terraform_dir"
         echo "Installation is complete!"
 fi
 echo "Version details are as follows:"
