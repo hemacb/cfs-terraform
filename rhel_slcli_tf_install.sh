@@ -64,5 +64,8 @@ else
 		source /root/.bash_profile		
         echo "Installation is complete!"
 fi
+source /root/.bash_profile
 echo "Version details are as follows:"
 terraform --version
+
+
