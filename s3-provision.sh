@@ -81,7 +81,7 @@ then
 			mv sl1.tf $2/$1/
 			cd $2/$1/
 			terraform plan
-#			terraform apply
+			terraform apply
 		else
 			echo "Current POC code supports only Development and QA environment, Please select Accordingly..."
 		fi
