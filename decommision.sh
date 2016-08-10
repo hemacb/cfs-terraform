@@ -9,28 +9,29 @@ then
 						read value
 						if [ "$value" = "y" ]
 						then
-								cd $2/$1/web/
-								id=$(cat terraform.tfstate | grep \"id\" | cut -d":" -f2 | cut -d"\"" -f2 | uniq)
-								name=$(cat terraform.tfstate | grep \"name\" | cut -d":" -f2 | cut -d"\"" -f2 | uniq)
-								slcli vs capture $id -n $name
-								imgid=$(slcli image list | grep $name | cut -d" " -f1)
-								echo "Backup in progress for the server" "$name"
+								cd $2
+								cat terraform.tfstate | grep \"id\" | cut -d":" -f2 | cut -d"\"" -f2 | uniq > id.txt
+								cat terraform.tfstate | grep \"name\" | cut -d":" -f2 | cut -d"\"" -f2 > name.txt
+								export name1=`sed -n '1p' name.txt`
+								export dbname=`sed -n '2p' name.txt`
+								export id1=`sed -n '1p' id.txt`
+								export id2=`sed -n '2p' id.txt`
+								slcli vs capture $id1 -n $name1
+								imgid=$(slcli image list | grep $name1 | cut -d" " -f1)
+								echo "Backup in progress for the server" "$name1"
 								for i in {1..600}
 								do
-										sleep 1
-										imgid1=$(slcli image detail $imgid | grep disk | tr -d ' '| cut -d"e" -f2)
-										if [ "$imgid1" != "0" ]
-										then
-												echo "Backup Completed successfully :" "$name"
-												terraform destroy -force
-												break
-										fi
+									sleep 1
+									imgid1=$(slcli image detail $imgid | grep disk | tr -d ' '| cut -d"e" -f2)
+									if [ "$imgid1" != "0" ]
+									then
+											echo "Backup Completed successfully :" "$name1"
+											terraform destroy -force
+											break
+									fi
 								done
-								cd ../../../
-								cd $2/$1/db
-								id1=$(cat terraform.tfstate | grep \"id\" | cut -d":" -f2 | cut -d"\"" -f2 | uniq)
-								dbname=$(cat terraform.tfstate | grep \"name\" | cut -d":" -f2 | cut -d"\"" -f2 | uniq)
-								slcli vs capture $id1 -n $dbname
+
+								slcli vs capture $id2 -n $dbname
 								imgdbid=$(slcli image list | grep $dbname | cut -d" " -f1)
 								echo "Backup in progress for the server" "$dbname"
 								for i in {1..600}
@@ -44,21 +45,14 @@ then
 												break
 										fi
 								done
-								cd ../../
-								rm -rf $1
-								cd ../
-								rm -d $2
+								cd ..
+								rm -fr $2
 						elif [ "$value" = "n" ]
 						then
-								cd $2/$1/web/
+								cd $2
 								terraform destroy -force
-								cd ../../../
-								cd $2/$1/db
-								terraform destroy -force
-								cd ../../
-								rm -rf $1
-								cd ../
-								rm -d $2
+								cd ..
+								rm -rf $2
 						else
 								echo "right selection is y/n"
 						fi

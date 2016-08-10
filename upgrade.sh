@@ -11,7 +11,7 @@ then
 						webhostname=$( cat json/"$1"-"$2".json | grep webhostname | cut -d":" -f2 )
 						webdisk=$( cat json/"$1"-"$2".json | grep webdisk | cut -d":" -f2 )
 						webpostinstall=$(cat json/"$1"-"$2".json | grep webpostinstall | cut -d":" -f2,3)
-						webuserdata=$(cat json/"$1"-"$2".json | grep webuserdata | cut -d":" -f2,3,4)
+						webuserdata=$(cat json/"$1"-"$2".json | grep webuserdata | cut -d":" -f2,3,4,5)
 						dbcpu=$( cat json/"$1"-"$2".json | grep dbcpu | cut -d":" -f2)
 						dbmemory=$( cat json/"$1"-"$2".json | grep dbmemory | cut -d":" -f2 )
 						dbimage=$( cat json/"$1"-"$2".json | grep dbimage | cut -d":" -f2)
@@ -19,31 +19,25 @@ then
 						dbdisk=$( cat json/"$1"-"$2".json | grep dbdisk | cut -d":" -f2 )
 						dbpostinstall=$(cat json/"$1"-"$2".json | grep dbpostinstall | cut -d":" -f2,3)
 						dbuserdata=$(cat json/"$1"-"$2".json | grep dbuserdata | cut -d":" -f2,3,4)
-						cp sl.tf sl1.tf
-						sed -i s/hostname/"$webhostname"/g sl1.tf
-						sed -i s/cpucount/"$webcpu"/g sl1.tf
-						sed -i s/ramsize/"$webmemory"/g sl1.tf
-						sed -i s/osname/"$webimage"/g sl1.tf
-						sed -i s/rootdisk/"$webdisk"/g sl1.tf
-						sed -i s/piscript/"$webpostinstall"/g s11.tf
-						sed -i s/userdata/"$webuserdata"/g s11.tf
-						mkdir -p $2/$1/web
-						mkdir -p $2/$1/db
-						mv sl1.tf $2/$1/web/
-						cd $2/$1/web
-						terraform plan
-						terraform apply
-						cd ../../../
-						cp sl.tf sl1.tf
-						sed -i s/hostname/"$dbhostname"/g sl1.tf
-						sed -i s/cpucount/"$dbcpu"/g sl1.tf
-						sed -i s/ramsize/"$dbmemory"/g sl1.tf
-						sed -i s/osname/"$dbimage"/g sl1.tf
-						sed -i s/rootdisk/"$dbdisk"/g sl1.tf
-						sed -i s/piscript/"$dbpostinstall"/g s11.tf
-						sed -i s/userdata/"$dbuserdata"/g s11.tf
-						mv sl1.tf $2/$1/db/
-						cd $2/$1/db
+						cp tf/sl_2.tf sl_webdb.tf
+						sed -i s/webhostname/"$webhostname"/g sl_webdb.tf
+						sed -i s/webcpucount/"$webcpu"/g sl_webdb.tf
+						sed -i s/webramsize/"$webmemory"/g sl_webdb.tf
+						sed -i s/webosname/"$webimage"/g sl_webdb.tf
+						sed -i s/webrootdisk/"$webdisk"/g sl_webdb.tf
+						sed -i s/webpiscript/"$webpostinstall"/g sl_webdb.tf
+						sed -i s/webuserdata/"$webuserdata"/g sl_webdb.tf
+						sed -i s/dbhostname/"$dbhostname"/g sl_webdb.tf
+						sed -i s/dbcpucount/"$dbcpu"/g sl_webdb.tf
+						sed -i s/dbramsize/"$dbmemory"/g sl_webdb.tf
+						sed -i s/dbosname/"$dbimage"/g sl_webdb.tf
+						sed -i s/dbrootdisk/"$dbdisk"/g sl_webdb.tf
+						sed -i s/dbpiscript/"$dbpostinstall"/g sl_webdb.tf
+						sed -i s/dbuserdata/"$dbuserdata"/g sl_webdb.tf
+						#sed -i s/dbhostname/"$dbhostname"/g sl_webdb.tf
+						mkdir -p $2
+                                                mv sl_webdb.tf $2
+                                                cd $2
 						terraform plan
 						terraform apply
 				else
@@ -67,7 +61,7 @@ then
 			echo $piscript				
 			userdata=$( cat json/"$1"-"$2".json | grep webuserdata | cut -d":" -f2,3,4)
 			echo $userdata
-			cp sl.tf sl1.tf
+			cp tf/sl.tf sl1.tf
 			sed -i s/hostname/"$hostname"/g sl1.tf
 			sed -i s/cpucount/"$cpu"/g sl1.tf
 			sed -i s/ramsize/"$memory"/g sl1.tf
@@ -81,7 +75,7 @@ then
 			mv sl1.tf $2/$1/
 			cd $2/$1/
 			terraform plan
-			terraform apply
+			#terraform apply
 		else
 			echo "Current POC code supports only Development and QA environment, Please select Accordingly..."
 		fi
