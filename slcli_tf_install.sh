@@ -19,7 +19,7 @@ else
         con1=`echo $?`
         if [ $con1 -eq 0 ]
                 then
-                file=`ls | grep 'softlayer'`
+                file=`ls | grep 'softlayer-python'`
                 cd $file
                         python setup.py install
                         con2=`echo $?`
@@ -46,7 +46,8 @@ else
 				yum install unzip -y
 			fi
             unzip master
-			cd softlayer-softlayer-python-4932cac
+			file=`ls | grep 'softlayer-python'`
+                cd $file
 				python setup.py install
 				con3=`echo $?`
 				if [ $con3 -eq 0 ]
