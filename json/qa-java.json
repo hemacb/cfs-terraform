@@ -2,15 +2,15 @@
 "webcpu" :1
 "webmemory" :1024
 "webimage" :UBUNTU_14_64
-"webhostname" :qa-javaserver
+"webhostname" :qa-java-webserver
 "webdisk" :25
 "webpostinstall" :https:\/\/s3.ap-south-1.amazonaws.com\/cg-cfs-immediate\/user_data.sh
-"webuserdata" :Environment:dev,Role:web_svr
+"webuserdata" :Environment:dev,Role:app_svr,Passphrase:pass_phrase,DBServerIp:${softlayer_virtual_guest.dbhost.ipv4_address}
 "dbcpu" :1
 "dbmemory" :1024
 "dbimage" :UBUNTU_14_64
-"dbhostname" :qa-javaDBserver
+"dbhostname" :qa-java-dbserver
 "dbdisk" :25
 "dbpostinstall" :https:\/\/s3.ap-south-1.amazonaws.com\/cg-cfs-immediate\/user_data.sh
-"dbuserdata" :Environment:dev,Role:db_svr
+"dbuserdata" :Environment:dev,Role:app_svr,Passphrase:pass_phrase
 }

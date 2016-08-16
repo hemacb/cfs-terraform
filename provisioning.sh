@@ -11,14 +11,14 @@ then
 						webhostname=$( cat json/"$1"-"$2".json | grep webhostname | cut -d":" -f2 )
 						webdisk=$( cat json/"$1"-"$2".json | grep webdisk | cut -d":" -f2 )
 						webpostinstall=$(cat json/"$1"-"$2".json | grep webpostinstall | cut -d":" -f2,3)
-						webuserdata=$(cat json/"$1"-"$2".json | grep webuserdata | cut -d":" -f2,3,4,5)
+						webuserdata=$(cat json/"$1"-"$2".json | grep webuserdata | cut -d":" -f2,3,4,5,6)
 						dbcpu=$( cat json/"$1"-"$2".json | grep dbcpu | cut -d":" -f2)
 						dbmemory=$( cat json/"$1"-"$2".json | grep dbmemory | cut -d":" -f2 )
 						dbimage=$( cat json/"$1"-"$2".json | grep dbimage | cut -d":" -f2)
 						dbhostname=$( cat json/"$1"-"$2".json | grep dbhostname | cut -d":" -f2 )
 						dbdisk=$( cat json/"$1"-"$2".json | grep dbdisk | cut -d":" -f2 )
 						dbpostinstall=$(cat json/"$1"-"$2".json | grep dbpostinstall | cut -d":" -f2,3)
-						dbuserdata=$(cat json/"$1"-"$2".json | grep dbuserdata | cut -d":" -f2,3,4)
+						dbuserdata=$(cat json/"$1"-"$2".json | grep dbuserdata | cut -d":" -f2,3,4,5)
 						cp tf/sl_2.tf sl_webdb.tf
 						sed -i s/webhostname/"$webhostname"/g sl_webdb.tf
 						sed -i s/webcpucount/"$webcpu"/g sl_webdb.tf
@@ -34,7 +34,9 @@ then
 						sed -i s/dbrootdisk/"$dbdisk"/g sl_webdb.tf
 						sed -i s/dbpiscript/"$dbpostinstall"/g sl_webdb.tf
 						sed -i s/dbuserdata/"$dbuserdata"/g sl_webdb.tf
-						#sed -i s/dbhostname/"$dbhostname"/g sl_webdb.tf
+						#echo $dbuserdata
+						sed -i s/pass_phrase/"$4"/g sl_webdb.tf
+						sed -i s/dbhost/"$dbhostname"/g sl_webdb.tf
 						mkdir -p $2
                                                 mv sl_webdb.tf $2
                                                 cd $2

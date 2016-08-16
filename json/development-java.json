@@ -5,12 +5,12 @@
 "webhostname" :dev-java-appserver
 "webdisk" :25
 "webpostinstall" :https:\/\/s3.ap-south-1.amazonaws.com\/cg-cfs-immediate\/user_data.sh
-"webuserdata" :Environment:dev,Role:app_svr,DBServerIp:${softlayer_virtual_guest.dev-java-dbserver.ipv4_address}
+"webuserdata" :Environment:dev,Role:app_svr,Passphrase:pass_phrase,DBServerIp:${softlayer_virtual_guest.dbhost.ipv4_address}
 "dbcpu" :2
 "dbmemory" :2048
 "dbimage" :UBUNTU_14_64
 "dbhostname" :dev-java-dbserver
 "dbdisk" :25
 "dbpostinstall" :https:\/\/s3.ap-south-1.amazonaws.com\/cg-cfs-immediate\/user_data.sh
-"dbuserdata" :Environment:dev,Role:db_svr
+"dbuserdata" :Environment:dev,Role:db_svr,Passphrase:pass_phrase
 }
