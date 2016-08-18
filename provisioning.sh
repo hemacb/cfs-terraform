@@ -61,7 +61,7 @@ then
 			disk=$( cat json/"$1"-"$2".json | grep webdisk | cut -d":" -f2 )
 			piscript=$( cat json/"$1"-"$2".json | grep webpostinstall | cut -d":" -f2,3)
 			echo $piscript				
-			userdata=$( cat json/"$1"-"$2".json | grep webuserdata | cut -d":" -f2,3,4)
+			userdata=$( cat json/"$1"-"$2".json | grep webuserdata | cut -d":" -f2,3,4,5,6)
 			echo $userdata
 			cp tf/sl.tf sl1.tf
 			sed -i s/hostname/"$hostname"/g sl1.tf
@@ -73,11 +73,12 @@ then
 			#sed -i s/postinstall/"$postinstalls"/g sl1.tf
 			sed -i s/piscript/"$piscript"/g sl1.tf
 			sed -i s/userdata/"$userdata"/g sl1.tf
+			sed -i s/pass_phrase/"$4"/g sl1.tf
 			mkdir -p $2/$1/
 			mv sl1.tf $2/$1/
 			cd $2/$1/
 			terraform plan
-			#terraform apply
+			terraform apply
 		else
 			echo "Current POC code supports only Development and QA environment, Please select Accordingly..."
 		fi
