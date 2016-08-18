@@ -5,9 +5,9 @@ then
 		then
 				if [ "$1" = "development" ] || [ "$1" = "qa" ]
 				then
-						echo -n "Do you want to take backup before Destroy[y/n]:"
-						read value
-						if [ "$value" = "y" ]
+						#echo -n "Do you want to take backup before Destroy[y/n]:"
+						#read value
+						if [ "$4" = "yes" ]
 						then
 								cd $2
 								cat terraform.tfstate | grep \"id\" | cut -d":" -f2 | cut -d"\"" -f2 | uniq > id.txt
@@ -47,7 +47,7 @@ then
 								done
 								cd ..
 								rm -fr $2
-						elif [ "$value" = "n" ]
+						elif [ "$4" = "no" ]
 						then
 								cd $2
 								terraform destroy -force
@@ -69,9 +69,9 @@ then
 		then
 				if [ "$1" = "development" ] || [ "$1" = "qa" ]
 				then
-						echo -n "Do you want to take backup before Destroy[y/n]:"
-						read value
-						if [ "$value" = "y" ]
+						#echo -n "Do you want to take backup before Destroy[y/n]:"
+						#read value
+						if [ "$4" = "yes" ]
 						then
 								cd $2/$1/
 								id=$(cat terraform.tfstate | grep \"id\" | cut -d":" -f2 | cut -d"\"" -f2 | uniq)
@@ -96,7 +96,7 @@ then
 								rm -rf $1
 								cd ../
 								rm -d $2
-						elif [ "$value" = "n" ]
+						elif [ "$4" = "no" ]
 						then
 								cd $2/$1/
 								terraform destroy -force
