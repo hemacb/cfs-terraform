@@ -11,14 +11,14 @@ then
 						webhostname=$( cat json/"$1"-"$2".json | grep webhostname | cut -d":" -f2 )
 						webdisk=$( cat json/"$1"-"$2".json | grep webdisk | cut -d":" -f2 )
 						webpostinstall=$(cat json/"$1"-"$2".json | grep webpostinstall | cut -d":" -f2,3)
-						webuserdata=$(cat json/"$1"-"$2".json | grep webuserdata | cut -d":" -f2,3,4,5,6)
+						webuserdata=$(cat json/"$1"-"$2".json | grep webuserdata | cut -d":" -f2,3,4,5,6,7)
 						dbcpu=$( cat json/"$1"-"$2".json | grep dbcpu | cut -d":" -f2)
 						dbmemory=$( cat json/"$1"-"$2".json | grep dbmemory | cut -d":" -f2 )
 						dbimage=$( cat json/"$1"-"$2".json | grep dbimage | cut -d":" -f2)
 						dbhostname=$( cat json/"$1"-"$2".json | grep dbhostname | cut -d":" -f2 )
 						dbdisk=$( cat json/"$1"-"$2".json | grep dbdisk | cut -d":" -f2 )
 						dbpostinstall=$(cat json/"$1"-"$2".json | grep dbpostinstall | cut -d":" -f2,3)
-						dbuserdata=$(cat json/"$1"-"$2".json | grep dbuserdata | cut -d":" -f2,3,4,5)
+						dbuserdata=$(cat json/"$1"-"$2".json | grep dbuserdata | cut -d":" -f2,3,4,5,6)
 						cp tf/sl_2.tf sl_webdb.tf
 						sed -i s/webhostname/"$webhostname"/g sl_webdb.tf
 						sed -i s/webcpucount/"$webcpu"/g sl_webdb.tf
@@ -36,12 +36,13 @@ then
 						sed -i s/dbuserdata/"$dbuserdata"/g sl_webdb.tf
 						#echo $dbuserdata
 						sed -i s/pass_phrase/"$4"/g sl_webdb.tf
+						sed -i s/art_id/"$5"/g sl_webdb.tf
 						sed -i s/dbhost/"$dbhostname"/g sl_webdb.tf
 						mkdir -p $2
                                                 mv sl_webdb.tf $2
                                                 cd $2
 						terraform plan
-						terraform apply
+#						terraform apply
 				else
 					echo "Current POC code supports only Development and QA environment, Please select Accordingly..."
 				fi
@@ -61,7 +62,7 @@ then
 			disk=$( cat json/"$1"-"$2".json | grep webdisk | cut -d":" -f2 )
 			piscript=$( cat json/"$1"-"$2".json | grep webpostinstall | cut -d":" -f2,3)
 			echo $piscript				
-			userdata=$( cat json/"$1"-"$2".json | grep webuserdata | cut -d":" -f2,3,4,5,6)
+			userdata=$( cat json/"$1"-"$2".json | grep webuserdata | cut -d":" -f2,3,4,5,6,7)
 			echo $userdata
 			cp tf/sl.tf sl1.tf
 			sed -i s/hostname/"$hostname"/g sl1.tf
@@ -74,6 +75,7 @@ then
 			sed -i s/piscript/"$piscript"/g sl1.tf
 			sed -i s/userdata/"$userdata"/g sl1.tf
 			sed -i s/pass_phrase/"$4"/g sl1.tf
+			sed -i s/art_id/"$5"/g sl1.tf
 			mkdir -p $2/$1/
 			mv sl1.tf $2/$1/
 			cd $2/$1/
