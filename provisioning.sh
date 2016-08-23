@@ -42,7 +42,7 @@ then
                                                 mv sl_webdb.tf $2
                                                 cd $2
 						terraform plan
-#						terraform apply
+						terraform apply
 				else
 					echo "Current POC code supports only Development and QA environment, Please select Accordingly..."
 				fi
