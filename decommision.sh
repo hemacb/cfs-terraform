@@ -16,7 +16,7 @@ then
 								export dbname=`sed -n '2p' name.txt`
 								export id1=`sed -n '1p' id.txt`
 								export id2=`sed -n '2p' id.txt`
-								timestamp=$ (date +"%T")
+								timestamp=$(date +"%T")
                                                                 name=$name-$timestamp
 								slcli vs capture $id1 -n $name1 >> /root/server.log
 								imgid=$(slcli image list | grep $name1 | cut -d" " -f1)
