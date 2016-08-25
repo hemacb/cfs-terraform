@@ -2,7 +2,7 @@
 	"webcpu" :1
 	"webmemory" :1024
 	"webimage" :UBUNTU_14_64
-	"webhostname" :qa-php-webserver
+	"webhostname" :qa-php-appserver
 	"webdisk" :25
 	"webpostinstall" :https:\/\/s3.ap-south-1.amazonaws.com\/cg-cfs-immediate\/user_data.sh
 	"webuserdata" :Environment:qa,Role:app_svr,Passphrase:pass_phrase,ArtifactID:art_id,DBServerIp:${softlayer_virtual_guest.dbhost.ipv4_address}
