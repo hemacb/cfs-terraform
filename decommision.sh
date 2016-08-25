@@ -32,7 +32,7 @@ then
 											break
 									fi
 								done
-								timestamp=$ (date +"%T")
+								timestamp=$(date +"%T")
                                                                 dbname=$dbname-$timestamp
 								slcli vs capture $id2 -n $dbname  >> /root/server.log
 								imgdbid=$(slcli image list | grep $dbname | cut -d" " -f1)
@@ -79,7 +79,7 @@ then
 								cd $2/$1/
 								id=$(cat terraform.tfstate | grep \"id\" | cut -d":" -f2 | cut -d"\"" -f2 | uniq)
 								name=$(cat terraform.tfstate | grep \"name\" | cut -d":" -f2 | cut -d"\"" -f2 | uniq)
-								timestamp=$ (date +"%T")
+								timestamp=$(date +"%T")
 								name=$name-$timestamp
 								slcli vs capture $id -n $name  >> /root/server.log
 								sleep 10
