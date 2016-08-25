@@ -16,7 +16,9 @@ then
 								export dbname=`sed -n '2p' name.txt`
 								export id1=`sed -n '1p' id.txt`
 								export id2=`sed -n '2p' id.txt`
-								slcli vs capture $id1 -n $name1
+								timestamp=$ (date +"%T")
+                                                                name=$name-$timestamp
+								slcli vs capture $id1 -n $name1 >> /root/server.log
 								imgid=$(slcli image list | grep $name1 | cut -d" " -f1)
 								echo "Backup in progress for the server" "$name1"
 								for i in {1..600}
@@ -30,8 +32,9 @@ then
 											break
 									fi
 								done
-
-								slcli vs capture $id2 -n $dbname
+								timestamp=$ (date +"%T")
+                                                                dbname=$dbname-$timestamp
+								slcli vs capture $id2 -n $dbname  >> /root/server.log
 								imgdbid=$(slcli image list | grep $dbname | cut -d" " -f1)
 								echo "Backup in progress for the server" "$dbname"
 								for i in {1..600}
@@ -76,7 +79,9 @@ then
 								cd $2/$1/
 								id=$(cat terraform.tfstate | grep \"id\" | cut -d":" -f2 | cut -d"\"" -f2 | uniq)
 								name=$(cat terraform.tfstate | grep \"name\" | cut -d":" -f2 | cut -d"\"" -f2 | uniq)
-								slcli vs capture $id -n $name
+								timestamp=$ (date +"%T")
+								name=$name-$timestamp
+								slcli vs capture $id -n $name  >> /root/server.log
 								sleep 10
 								imgid=$(slcli image list | grep $name | cut -d" " -f1)
 								sleep 5
