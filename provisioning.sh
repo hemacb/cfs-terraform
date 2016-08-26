@@ -62,7 +62,7 @@ then
 			disk=$( cat json/"$1"-"$2".json | grep webdisk | cut -d":" -f2 )
 			piscript=$( cat json/"$1"-"$2".json | grep webpostinstall | cut -d":" -f2,3)
 			echo $piscript				
-			userdata=$( cat json/"$1"-"$2".json | grep dbuserdata | cut -d":" -f2,3,4,5,6,7)
+			userdata=$( cat json/"$1"-"$2".json | grep webuserdata | cut -d":" -f2,3,4,5,6)
 			echo $userdata
 			cp tf/sl.tf sl1.tf
 			sed -i s/hostname/"$hostname"/g sl1.tf
